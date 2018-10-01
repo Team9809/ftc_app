@@ -125,12 +125,12 @@ public class OurFirst_TeleOp extends LinearOpMode {
             if(gamepad1.a) //button 'a' will open
             {
                 servoHandR.setPosition(OPEN);
-                servoHandL.setPosition(OPEN);
+                servoHandL.setPosition(CLOSED);
             }
             else if (gamepad1.b) //button 'b' will close
             {
                 servoHandR.setPosition(CLOSED);
-                servoHandL.setPosition(CLOSED);
+                servoHandL.setPosition(OPEN);
             }
 
 
