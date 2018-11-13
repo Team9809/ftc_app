@@ -40,6 +40,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
+ * This is our first example pushBot teleOp program
+ *
  * This file contains an minimal example of a Linear Tele "OpMode".
  *
  * This particular OpMode just executes a basic Tank Drive, Arm and 2 Servos for a PushBot
@@ -50,7 +52,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @TeleOp(name="OurFirst_TeleOp", group="Examples")  // @Autonomous(...) is the other common choice
-//@Disabled
+@Disabled
 public class OurFirst_TeleOp extends LinearOpMode {
 
     /* Declare OpMode members. */
