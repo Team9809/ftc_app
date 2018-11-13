@@ -36,6 +36,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * This is our COMPETITION teleOp program
  *
  * It uses two controllers: 1 for driving, 2 for controlling arm and servo
+ * Adding encoders to both arm motors to allow for position hold and min && max thresholds
+ *
  */
 
 @TeleOp(name="compTele:OurRobot1 ", group="compTele")  // @Autonomous(...) is the other common choice
@@ -62,6 +64,18 @@ public class OurRobot1 extends LinearOpMode {
     double clockwise = 0.8;
     double stop = 0.5;
 
+    // variables for arm limits and hold position
+    // note: these can be placed in your hardwareSetup Class
+    // ( not currently using min/max values for arm operation
+    double  arm1MinPos        = 0.0;      // encoder position for arm at bottom
+    double  arm2MinPos        = 0.0;      // encoder position for arm at bottom
+    double  arm1MaxPos        = 5380.0;   // encoder position for arm at top
+    double  arm2MaxPos        = 5380.0;   // encoder position for arm at top
+    int     arm1HoldPosition;             // reading of arm position when buttons released to hold
+    int     arm2HoldPosition;             // reading of arm position when buttons released to hold
+    double  slopeVal         = 2000.0;   // increase or decrease to perfect
+
+
     @Override
     public void runOpMode() throws InterruptedException {
         //adds feedback telemetry to DS
@@ -85,11 +99,12 @@ public class OurRobot1 extends LinearOpMode {
         motorRight.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         motorArm1.setDirection(DcMotor.Direction.FORWARD); // Can change based on motor configuration
         motorArm2.setDirection (DcMotor.Direction.FORWARD);
-        //Set servo hand grippers to open position.
-        // servoHandL.setPosition(OPEN);
-        //servoHandR.setPosition(OPEN);
 
-        // Wait for the game to start (driver presses PLAY)
+        // set arm motors to use encoders
+        motorArm1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorArm2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+          // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
@@ -98,31 +113,53 @@ public class OurRobot1 extends LinearOpMode {
          *************************/
 
         while (opModeIsActive()) {  // run until the end of the match (driver presses STOP)
+
+    //init current position of arm motor
+            arm1HoldPosition = motorArm1.getCurrentPosition();
+            arm2HoldPosition = motorArm2.getCurrentPosition();
+            //Display runtime and arm positions
             telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("armPostion: ", + motorArm1.getCurrentPosition());
+            telemetry.addData("armPostion: ", + motorArm2.getCurrentPosition());
             telemetry.update();
 
-            // tank drive set to gamepad1 joysticks
+    // tank drive set to gamepad1 joysticks
             //(note: The joystick goes negative when pushed forwards)
             motorLeft.setPower(gamepad1.left_stick_y);
             motorRight.setPower(gamepad1.right_stick_y);
 
     // Arm Control - Uses dual buttons (bumper && trigger) to control motor direction
+
+            //Control motorArm1 - the shoulder
             if(gamepad2.right_bumper)
             {
                 motorArm1.setPower(-gamepad2.right_trigger); // if both Bumper + Trigger, then negative power, runs arm down
+                arm1HoldPosition = motorArm1.getCurrentPosition(); // continuously update hold position when moving arm
             }
-            else
+            else if (!gamepad2.right_bumper)
             {
                 motorArm1.setPower(gamepad2.right_trigger);  // else trigger positive value, runs arm up
+                arm1HoldPosition = motorArm1.getCurrentPosition(); // continuously update hold position when moving arm
+            }
+            else // else runs motor to hold current position
+            {
+                motorArm1.setPower((double) (arm1HoldPosition - motorArm1.getCurrentPosition()) / slopeVal);
             }
 
+            //Control motorArm2 - the elbow
             if(gamepad2.right_bumper)
             {
                 motorArm2.setPower(-gamepad2.left_trigger); // if both Bumper + Trigger, then negative power, runs arm down
+                arm2HoldPosition = motorArm2.getCurrentPosition(); // continuously update hold position when moving arm
             }
-            else
+            else if(!gamepad2.right_bumper)
             {
                 motorArm2.setPower(gamepad2.left_trigger);  // else trigger positive value, runs arm up
+                arm2HoldPosition = motorArm2.getCurrentPosition(); // continuously update hold position when moving arm
+            }
+            else // else runs motor to hold current position
+            {
+                motorArm2.setPower((double) (arm2HoldPosition - motorArm2.getCurrentPosition()) / slopeVal);
             }
 
 

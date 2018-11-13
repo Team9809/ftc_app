@@ -72,8 +72,9 @@ public class OurAutoDriveByTime extends LinearOpMode {
         runtime.reset();
 
         /************************
-         * Autonomous Code Below://
+         * Autonomous Code Below://  Use the basic drive methods at the bottom of this program to control robot movement
          *************************/
+
         DriveForwardTime(DRIVE_POWER, 4000);
         TurnLeft(DRIVE_POWER, 1000);
         StopDrivingTime(2000);
@@ -82,15 +83,19 @@ public class OurAutoDriveByTime extends LinearOpMode {
         TurnRight(DRIVE_POWER, 1000);
         StopDrivingTime(2000);
 
-        RaiseArm();
         DriveForwardTime(DRIVE_POWER, 4000);
         StopDriving();
 
-       
+        /*****************************
+         * End of Autonomous Code
+         ****************************/
 
     }//runOpMode
 
-    /** Below: Basic Drive Methods used in Autonomous code...**/
+/**
+ *  Below: Basic Drive Methods used in Autonomous code...
+ */
+
     //set Drive Power variable
     double DRIVE_POWER = 1.0;
 
