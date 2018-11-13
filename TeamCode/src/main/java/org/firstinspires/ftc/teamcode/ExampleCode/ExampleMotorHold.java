@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.ExampleCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -17,7 +18,7 @@ import org.firstinspires.ftc.teamcode.ExampleCode.MyBotHardwareSetup;
  */
 
 @TeleOp(name="Example: Concept HoldArm", group="Examples")  // @Autonomous(...) is the other common choice
-//@Disabled
+@Disabled
 public class ExampleMotorHold extends LinearOpMode{
 
     HardwareSetupHolonomicExample bot = new HardwareSetupHolonomicExample(); //set up remote to robot hardware configuration

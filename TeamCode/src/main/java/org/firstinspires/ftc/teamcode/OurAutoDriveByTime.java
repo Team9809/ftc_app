@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous(name="Example AutoByTime", group="Examples")  // @TeleOp(...) is the other common choice
-@Disabled
+//@Disabled
 public class OurAutoDriveByTime extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -29,12 +29,12 @@ public class OurAutoDriveByTime extends LinearOpMode {
     //motors
     DcMotor motorLeft = null;
     DcMotor motorRight = null;
-    DcMotor motorArm = null;
+    DcMotor motorArm2 = null;
+    DcMotor motorArm1 = null;
 
     //servos
     Servo armServo = null;
-    Servo servoHandL = null;
-    Servo servoHandR = null;
+
 
     //Create and set default hand positions variables. To be determined based on your build
     double CLOSED = 0.2;
@@ -50,22 +50,23 @@ public class OurAutoDriveByTime extends LinearOpMode {
          * to 'get' must correspond to the names assigned during the robot configuration
          * step (using the FTC Robot Controller app on the phone).
          */
-         motorLeft  = hardwareMap.dcMotor.get("motorL");
-         motorRight = hardwareMap.dcMotor.get("motorR");
-         motorArm = hardwareMap.dcMotor.get("motorArm");
-         armServo = hardwareMap.servo.get("armServo");     //autonomous code example below uses servo for arm instead/in addition to motor
-         servoHandL = hardwareMap.servo.get("servoHandL"); //assuming a pushBot configuration of two servo grippers
-         servoHandR = hardwareMap.servo.get("servoHandR");
+        motorLeft  = hardwareMap.dcMotor.get("motorL");
+        motorRight = hardwareMap.dcMotor.get("motorR");
+        motorArm2 = hardwareMap.dcMotor.get("motorArm2");
+        motorArm1 = hardwareMap.dcMotor.get("motorArm1");
+        //servoHandL = hardwareMap.servo.get("servoHandL"); //assuming a pushBot configuration of two servo grippers
+        armServo = hardwareMap.servo.get("servo1");
         
         // eg: Set the drive motor directions:
         // "Reverse" the motor that runs backwards when connected directly to the battery
          motorLeft.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
          motorRight.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-         motorArm.setDirection(DcMotor.Direction.FORWARD); // Can change based on motor configuration
+         motorArm1.setDirection(DcMotor.Direction.FORWARD); // Can change based on motor configuration
+        motorArm2.setDirection(DcMotor.Direction.FORWARD); // Can change based on motor configuration
         
         //Set servo hand grippers to open position. 
-         servoHandL.setPosition(OPEN);
-         servoHandR.setPosition(OPEN);
+         armServo.setPosition(OPEN);
+
         
         // Wait for the game to start (driver presses PLAY)
         waitForStart();

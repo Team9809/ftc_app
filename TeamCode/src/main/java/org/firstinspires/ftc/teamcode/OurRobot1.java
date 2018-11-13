@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  */
 
-@TeleOp(name="compTele:OurRobot1 ", group="compTele")  // @Autonomous(...) is the other common choice
+@TeleOp(name="compTele: OurRobot1 ", group="compTele")  // @Autonomous(...) is the other common choice
 //@Disabled
 public class OurRobot1 extends LinearOpMode {
 
@@ -73,7 +73,7 @@ public class OurRobot1 extends LinearOpMode {
     double  arm2MaxPos        = 5380.0;   // encoder position for arm at top
     int     arm1HoldPosition;             // reading of arm position when buttons released to hold
     int     arm2HoldPosition;             // reading of arm position when buttons released to hold
-    double  slopeVal         = 2000.0;   // increase or decrease to perfect
+    double  slopeVal         = 5000.0;   // increase or decrease to perfect
 
 
     @Override
@@ -147,12 +147,12 @@ public class OurRobot1 extends LinearOpMode {
             }
 
             //Control motorArm2 - the elbow
-            if(gamepad2.right_bumper)
+            if(gamepad2.left_bumper)
             {
                 motorArm2.setPower(-gamepad2.left_trigger); // if both Bumper + Trigger, then negative power, runs arm down
                 arm2HoldPosition = motorArm2.getCurrentPosition(); // continuously update hold position when moving arm
             }
-            else if(!gamepad2.right_bumper)
+            else if(!gamepad2.left_bumper)
             {
                 motorArm2.setPower(gamepad2.left_trigger);  // else trigger positive value, runs arm up
                 arm2HoldPosition = motorArm2.getCurrentPosition(); // continuously update hold position when moving arm
