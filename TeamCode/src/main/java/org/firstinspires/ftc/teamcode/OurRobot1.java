@@ -124,7 +124,7 @@ public class OurRobot1 extends LinearOpMode {
             {
                 motorArm2.setPower(gamepad2.left_trigger);  // else trigger positive value, runs arm up
             }
-            
+
 
     //servo commands
             if(gamepad2.a) //button 'a' runs CR servo CW
