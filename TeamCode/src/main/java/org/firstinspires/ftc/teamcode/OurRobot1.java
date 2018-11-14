@@ -73,7 +73,7 @@ public class OurRobot1 extends LinearOpMode {
     double  arm2MaxPos        = 5380.0;   // encoder position for arm at top
     int     arm1HoldPosition;             // reading of arm position when buttons released to hold
     int     arm2HoldPosition;             // reading of arm position when buttons released to hold
-    double  slopeVal         = 5000.0;   // increase or decrease to perfect
+    double  slopeVal         = 2000.0;   // increase or decrease to perfect
 
 
     @Override
@@ -131,13 +131,14 @@ public class OurRobot1 extends LinearOpMode {
 
     // Arm Control - Uses dual buttons (bumper && trigger) to control motor direction
 
+
             //Control motorArm1 - the shoulder
-            if(gamepad2.right_bumper)
+            if(gamepad2.right_bumper && gamepad2.right_trigger > 0.2)//using 0.2 instead of 0.0 as a threshold in case the trigger does not fully release
             {
                 motorArm1.setPower(-gamepad2.right_trigger); // if both Bumper + Trigger, then negative power, runs arm down
                 arm1HoldPosition = motorArm1.getCurrentPosition(); // continuously update hold position when moving arm
             }
-            else if (!gamepad2.right_bumper)
+            else if (!gamepad2.right_bumper && gamepad2.right_trigger > 0.2)
             {
                 motorArm1.setPower(gamepad2.right_trigger);  // else trigger positive value, runs arm up
                 arm1HoldPosition = motorArm1.getCurrentPosition(); // continuously update hold position when moving arm
@@ -148,12 +149,12 @@ public class OurRobot1 extends LinearOpMode {
             }
 
             //Control motorArm2 - the elbow
-            if(gamepad2.left_bumper)
+            if(gamepad2.left_bumper && gamepad2.left_trigger > 0.2)
             {
                 motorArm2.setPower(-gamepad2.left_trigger); // if both Bumper + Trigger, then negative power, runs arm down
                 arm2HoldPosition = motorArm2.getCurrentPosition(); // continuously update hold position when moving arm
             }
-            else if(!gamepad2.left_bumper)
+            else if(!gamepad2.left_bumper && gamepad2.left_trigger > 0.2)
             {
                 motorArm2.setPower(gamepad2.left_trigger);  // else trigger positive value, runs arm up
                 arm2HoldPosition = motorArm2.getCurrentPosition(); // continuously update hold position when moving arm
