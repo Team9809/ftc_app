@@ -111,12 +111,13 @@ public class OurRobot1 extends LinearOpMode {
         /************************
          * TeleOp Code Below://
          *************************/
+        arm1HoldPosition = motorArm1.getCurrentPosition();
+        arm2HoldPosition = motorArm2.getCurrentPosition();
 
         while (opModeIsActive()) {  // run until the end of the match (driver presses STOP)
 
     //init current position of arm motor
-            arm1HoldPosition = motorArm1.getCurrentPosition();
-            arm2HoldPosition = motorArm2.getCurrentPosition();
+
             //Display runtime and arm positions
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("armPostion: ", + motorArm1.getCurrentPosition());
@@ -180,7 +181,7 @@ public class OurRobot1 extends LinearOpMode {
             }
 
 
-            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+            //idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
         }
     }
 }
