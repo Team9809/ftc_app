@@ -40,9 +40,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  */
 
-@TeleOp(name="compTele: OurRobot1 ", group="compTele")  // @Autonomous(...) is the other common choice
+@TeleOp(name="compTele: TrippleClutchers_teleOp ", group="compTele")  // @Autonomous(...) is the other common choice
 //@Disabled
-public class OurRobot1 extends LinearOpMode {
+public class TrippleClutchers_teleOp extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
@@ -51,11 +51,6 @@ public class OurRobot1 extends LinearOpMode {
     DcMotor motorLeft = null;
     DcMotor motorArm2 = null;
     DcMotor motorArm1 = null;
-
-    //servos
-    //Servo servoHandL = null;
-    //Servo servoHandR = null;
-
     //colector
     Servo servo1 = null;
 
@@ -90,7 +85,7 @@ public class OurRobot1 extends LinearOpMode {
         motorRight = hardwareMap.dcMotor.get("motorR");
         motorArm2 = hardwareMap.dcMotor.get("motorArm2");
         motorArm1 = hardwareMap.dcMotor.get("motorArm1");
-        //servoHandL = hardwareMap.servo.get("servoHandL"); //assuming a pushBot configuration of two servo grippers
+        //servo1 = hardwareMap.servo.get("servo1"); //assuming a pushBot configuration of two servo grippers
         servo1 = hardwareMap.servo.get("servo1");
 
         // eg: Set the drive motor directions:

@@ -40,8 +40,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * This is our first example pushBot teleOp program
- *
  * This file contains an minimal example of a Linear Tele "OpMode".
  *
  * This particular OpMode just executes a basic Tank Drive, Arm and 2 Servos for a PushBot
@@ -51,20 +49,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="OurFirst_TeleOp", group="Examples")  // @Autonomous(...) is the other common choice
-@Disabled
-public class OurFirst_TeleOp extends LinearOpMode {
+@TeleOp(name="sensot_TeleOp", group="Examples")  // @Autonomous(...) is the other common choice
+//@Disabled
+public class sensor_TeleOp extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
     //motors
     DcMotor motorLeft = null;
     DcMotor motorRight = null;
-    DcMotor motorArm = null;
+    //DcMotor motorArm = null;
 
     //servos
-    Servo servoHandL = null;
-    Servo servoHandR = null;
+    //Servo servoHandL = null;
+    //Servo servoHandR = null;
 
     //Create and set default hand positions variables. To be determined based on your build
     double CLOSED = 0.2;
@@ -82,19 +80,19 @@ public class OurFirst_TeleOp extends LinearOpMode {
          */
          motorLeft  = hardwareMap.dcMotor.get("motorL");
          motorRight = hardwareMap.dcMotor.get("motorR");
-         motorArm = hardwareMap.dcMotor.get("motorArm");
-         servoHandL = hardwareMap.servo.get("servoHandL"); //assuming a pushBot configuration of two servo grippers
-         servoHandR = hardwareMap.servo.get("servoHandR");
+         //motorArm = hardwareMap.dcMotor.get("motorArm");
+         //servoHandL = hardwareMap.servo.get("servoHandL"); //assuming a pushBot configuration of two servo grippers
+         //servoHandR = hardwareMap.servo.get("servoHandR");
 
         // eg: Set the drive motor directions:
         // "Reverse" the motor that runs backwards when connected directly to the battery
          motorLeft.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
          motorRight.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-         motorArm.setDirection(DcMotor.Direction.FORWARD); // Can change based on motor configuration
+         //motorArm.setDirection(DcMotor.Direction.FORWARD); // Can change based on motor configuration
 
         //Set servo hand grippers to open position.
-         servoHandL.setPosition(OPEN);
-         servoHandR.setPosition(OPEN);
+         //servoHandL.setPosition(OPEN);
+         //servoHandR.setPosition(OPEN);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -114,11 +112,11 @@ public class OurFirst_TeleOp extends LinearOpMode {
             motorRight.setPower(gamepad1.right_stick_y);
 
             // Arm Control - Uses dual buttons to control motor direction
-            if(gamepad1.right_bumper)
+           /*if(gamepad1.right_bumper)
             {
                 motorArm.setPower(-gamepad1.right_trigger); // if both Bumper + Trigger, then negative power, runs arm down
             }
-            else
+
             {
                 motorArm.setPower(gamepad1.right_trigger);  // else trigger positive value, runs arm up
             }
@@ -127,15 +125,15 @@ public class OurFirst_TeleOp extends LinearOpMode {
             if(gamepad1.a) //button 'a' will open
             {
                 servoHandR.setPosition(OPEN);
-                servoHandL.setPosition(CLOSED);
+                servoHandL.setPosition(OPEN);
             }
             else if (gamepad1.b) //button 'b' will close
             {
                 servoHandR.setPosition(CLOSED);
-                servoHandL.setPosition(OPEN);
+                servoHandL.setPosition(CLOSED);
             }
 
-
+*/
             idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
         }
     }

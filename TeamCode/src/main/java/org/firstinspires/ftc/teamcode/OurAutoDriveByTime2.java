@@ -9,20 +9,20 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 /**
  * This is our COMPETITION Autonomous program
  *
  * It uses time to set drive and turn amounts
  */
 
-@Autonomous(name="Example AutoByTime", group="Examples")  // @TeleOp(...) is the other common choice
+@Autonomous(name="Auto2", group="Examples")  // @TeleOp(...) is the other common choice
 //@Disabled
-public class OurAutoDriveByTime extends LinearOpMode {
+public class OurAutoDriveByTime2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
@@ -33,7 +33,9 @@ public class OurAutoDriveByTime extends LinearOpMode {
     DcMotor motorArm1 = null;
 
     //servos
-    Servo armServo = null;
+    //Servo armServo = null;
+    Servo bucketServo = null;
+
 
 
     //Create and set default hand positions variables. To be determined based on your build
@@ -54,20 +56,20 @@ public class OurAutoDriveByTime extends LinearOpMode {
         motorRight = hardwareMap.dcMotor.get("motorR");
         motorArm2 = hardwareMap.dcMotor.get("motorArm2");
         motorArm1 = hardwareMap.dcMotor.get("motorArm1");
-        //servoHandL = hardwareMap.servo.get("servoHandL"); //assuming a pushBot configuration of two servo grippers
-        armServo = hardwareMap.servo.get("servo1");
-        
+        //servo1 = hardwareMap.servo.get("servo1"); //assuming a pushBot configuration of two servo grippers
+        bucketServo = hardwareMap.servo.get("servo1");
+
         // eg: Set the drive motor directions:
         // "Reverse" the motor that runs backwards when connected directly to the battery
          motorLeft.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
          motorRight.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
          motorArm1.setDirection(DcMotor.Direction.FORWARD); // Can change based on motor configuration
         motorArm2.setDirection(DcMotor.Direction.FORWARD); // Can change based on motor configuration
-        
-        //Set servo hand grippers to open position. 
-         armServo.setPosition(OPEN);
 
-        
+        //Set bucketServo to stop
+         bucketServo.setPosition(0.5);
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -76,19 +78,30 @@ public class OurAutoDriveByTime extends LinearOpMode {
          * Autonomous Code Below://  Use the basic drive methods at the bottom of this program to control robot movement
          *************************/
 
-        DriveForwardTime(DRIVE_POWER, 4000);
+       // DriveForwardTime(DRIVE_POWER, 500);
+        //StopDrivingTime(250);
+        //TurnLeft(DRIVE_POWER, 1000);
+
+       DriveForwardTime(DRIVE_POWER, 500);
+        TurnLeft(.8, 1000);
+        DriveForwardTime(DRIVE_POWER, 2000);
         TurnLeft(DRIVE_POWER, 1000);
-        StopDrivingTime(2000);
-
-        DriveForwardTime(DRIVE_POWER, 4000);
-        TurnRight(DRIVE_POWER, 1000);
-        StopDrivingTime(2000);
-
-        DriveForwardTime(DRIVE_POWER, 4000);
-        StopDriving();
-
+        DriveForwardTime(DRIVE_POWER, 2000);
+        DropBlock();
+        TurnRight(DRIVE_POWER, 1500);
+        DriveForwardTime(DRIVE_POWER, 2000);
+        TurnRight(DRIVE_POWER,1000);
+        DriveForwardTime(DRIVE_POWER, 3000);
+        StopDrivingTime(1000);
+/*
+        DropBlock();
+        Thread.sleep(1000);
+        PickupBlock();
+        Thread.sleep(1000);
+*/
         /*****************************
-         * End of Autonomous Code
+         * End of Autonom
+ous Code
          ****************************/
 
     }//runOpMode
@@ -122,6 +135,7 @@ public class OurAutoDriveByTime extends LinearOpMode {
         DriveForwardTime(0, time);
     }
 
+
     public void TurnLeft(double power, long time) throws InterruptedException
     {
         motorLeft.setPower(-power);
@@ -134,14 +148,17 @@ public class OurAutoDriveByTime extends LinearOpMode {
         TurnLeft(-power, time);
     }
 
-    public void RaiseArm()
+    //Sweeper servo
+    public void DropBlock() throws InterruptedException
     {
-        armServo.setPosition(.8); //note: uses servo instead of motor.
+    bucketServo.setPosition(0.8); // may need to reverse servo setting to drive correct direction
+
     }
 
-    public void LowerArm()
+    public void PickupBlock() throws InterruptedException
     {
-        armServo.setPosition(.2);
+        bucketServo.setPosition(0.3);
+
     }
 
 
