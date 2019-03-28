@@ -26,6 +26,7 @@ Copyright (c) 2016 Robert Atkinson
         */
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -41,7 +42,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @TeleOp(name="compTele: TrippleClutchers_teleOp ", group="compTele")  // @Autonomous(...) is the other common choice
-//@Disabled
+@Disabled
 public class TrippleClutchers_teleOp extends LinearOpMode {
 
     /* Declare OpMode members. */

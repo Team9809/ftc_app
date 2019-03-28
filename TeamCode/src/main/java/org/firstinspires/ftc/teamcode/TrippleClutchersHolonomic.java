@@ -45,7 +45,7 @@ public class TrippleClutchersHolonomic extends LinearOpMode
     double  slopeVal            = 2000.0;
     double  clockwise           = 0.2;
     double  counterclockwise    = 0.8;
-    double  stop                = 0.5;
+    double  stop                = 0.53;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -72,10 +72,10 @@ public class TrippleClutchersHolonomic extends LinearOpMode
             float gamepad1RightY = gamepad1.right_stick_y;  //drives forwards and backwards
 
             // holonomic formulas
-            float FrontLeft = -gamepad1LeftY - gamepad1LeftX - gamepad1RightY;
+            float FrontLeft  = -gamepad1LeftY - gamepad1LeftX - gamepad1RightY;
             float FrontRight = gamepad1LeftY - gamepad1LeftX - gamepad1RightY;
-            float BackRight = gamepad1LeftY + gamepad1LeftX - gamepad1RightY;
-            float BackLeft = -gamepad1LeftY + gamepad1LeftX - gamepad1RightY;
+            float BackRight  = gamepad1LeftY + gamepad1LeftX - gamepad1RightY;
+            float BackLeft   = -gamepad1LeftY + gamepad1LeftX - gamepad1RightY;
 
             // clip the right/left values so that the values never exceed +/- 1
             FrontRight = Range.clip(FrontRight, -1, 1);
@@ -85,8 +85,8 @@ public class TrippleClutchersHolonomic extends LinearOpMode
 
             // write the clipped values from the formula to the motors
             robot.motorFrontRight.setPower(FrontRight);
-            robot.motorFrontLeft.setPower(FrontLeft);
-            robot.motorBackLeft.setPower(BackLeft);
+            robot.motorFrontLeft.setPower(-FrontLeft);
+            robot.motorBackLeft.setPower(-BackLeft);
             robot.motorBackRight.setPower(BackRight);
 
             /*
@@ -99,6 +99,7 @@ public class TrippleClutchersHolonomic extends LinearOpMode
             telemetry.addData("f right pwr", "front right pwr: " + String.format("%.2f", FrontRight));
             telemetry.addData("b right pwr", "back right pwr: " + String.format("%.2f", BackRight));
             telemetry.addData("b left pwr", "back left pwr: " + String.format("%.2f", BackLeft));
+            telemetry.addData( "status", "runtime:" + runtime.toString());
             telemetry.addData("shoulderPostion: ", + robot.motorShoulder.getCurrentPosition());
             telemetry.addData("shoulderHoldPos: ", + shoulderHoldPosition);
             telemetry.addData("ElbowPostion: ", + robot.motorElbow.getCurrentPosition());
