@@ -6,7 +6,7 @@
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Don't forget to comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TrippleClutchers;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
